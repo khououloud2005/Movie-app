@@ -1,0 +1,58 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: var(--yellow);
+  color: #000;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 1.9rem;
+  letter-spacing: 0.5px;
+}
+
+.wish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #000;
+  color: var(--yellow);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: transform 0.15s ease;
+}
+
+.wish-btn:hover,
+.wish-btn.active {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--yellow-dark);
+}
+
+.badge {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #000;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .bar {
+    padding: 10px 14px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,10 @@
+<header class="bar">
+  <a routerLink="/" class="brand"><h1>Movie List</h1></a>
+  <a routerLink="/wishlist" routerLinkActive="active" class="wish-btn" aria-label="Open my wish list">
+    <fa-icon [icon]="faHeart" />
+    <span>Wish list</span>
+    @if (movieService.wishlistCount() > 0) {
+      <span class="badge">{{ movieService.wishlistCount() }}</span>
+    }
+  </a>
+</header>

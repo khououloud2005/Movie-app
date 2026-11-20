@@ -1,0 +1,22 @@
+<div class="bar">
+  <div class="field">
+    <fa-icon [icon]="faMagnifyingGlass" class="icon" />
+    <input
+      #box
+      type="text"
+      id="title"
+      name="title"
+      placeholder="movie title"
+      aria-label="Search a movie by title"
+      autocomplete="off"
+      [value]="text()"
+      (input)="searchMovieByTitle(box.value)"
+      (keydown.escape)="clear()"
+    />
+    @if (text().length > 0) {
+      <button type="button" class="clear" aria-label="Clear search" (click)="clear()">
+        <fa-icon [icon]="faXmark" />
+      </button>
+    }
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="backdrop" [style.background-image]="backdropCss()"></div>
+
+<div class="page">
+  <button type="button" class="btn btn-outline back" (click)="backToMovieList()">
+    <fa-icon [icon]="faArrowLeft" /> Back
+  </button>
+
+  @if (loading()) {
+    <div class="layout" aria-busy="true">
+      <div class="skeleton poster-skeleton"></div>
+      <div class="skeleton info-skeleton"></div>
+    </div>
+  } @else if (error()) {
+    <div class="state error" role="alert">
+      <h2>Movie not found</h2>
+      <p>This movie could not be loaded.</p>
+      <button type="button" class="btn" (click)="retry()">Retry</button>
+    </div>
+  } @else if (movie(); as m) {
+    <article class="layout">
+      <div class="poster">
+        @if (posterUrl(); as src) {
+          <img [src]="src" [alt]="m.title" />
+        } @else {
+          <div class="no-poster"><fa-icon [icon]="faFilm" size="3x" /></div>
+        }
+      </div>
+
+      <div class="info">
+        <h1>{{ m.title }}</h1>
+        @if (m.tagline) {
+          <p class="tagline">{{ m.tagline }}</p>
+        }
+
+        @if (m.genres.length > 0) {
+          <ul class="genres">
+            @for (genre of m.genres; track genre.id) {
+              <li>{{ genre.name }}</li>
+            }
+          </ul>
+        }
+
+        <dl class="facts">
+          <div>
+            <dt>Original title</dt>
+            <dd>{{ m.original_title }}</dd>
+          </div>
+          <div>
+            <dt>Original language</dt>
+            <dd class="upper">{{ m.original_language }}</dd>
+          </div>
+          <div>
+            <dt>Release date</dt>
+            <dd>{{ m.release_date ? (m.release_date | date: 'mediumDate') : '—' }}</dd>
+          </div>
+          @if (runtimeText(); as runtime) {
+            <div>
+              <dt>Runtime</dt>
+              <dd>{{ runtime }}</dd>
+            </div>
+          }
+          <div>
+            <dt>Vote average</dt>
+            <dd><fa-icon [icon]="faStar" class="star" /> {{ m.vote_average | number: '1.1-1' }} / 10</dd>
+          </div>
+          <div>
+            <dt>Vote count</dt>
+            <dd>{{ m.vote_count | number }}</dd>
+          </div>
+        </dl>
+
+        <h2>Overview</h2>
+        <p class="overview">{{ m.overview || 'No overview available.' }}</p>
+
+        <button
+          type="button"
+          class="btn wish"
+          [class.btn-outline]="inWishlist()"
+          [attr.aria-pressed]="inWishlist()"
+          (click)="toggleWishlist()"
+        >
+          <fa-icon [icon]="faHeart" />
+          {{ inWishlist() ? 'In your wish list — remove' : 'Add to wish list' }}
+        </button>
+      </div>
+    </article>
+  }
+</div>

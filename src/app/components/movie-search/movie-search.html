@@ -1,0 +1,26 @@
+@if (loading()) {
+  <div class="movie-grid" aria-busy="true">
+    @for (n of skeletons; track n) {
+      <div class="skeleton"></div>
+    }
+  </div>
+} @else if (error()) {
+  <div class="state error" role="alert">
+    <h2>Search failed</h2>
+    <p>We could not reach TMDB. Check your connection and try typing again.</p>
+  </div>
+} @else if (results().length === 0) {
+  <div class="state">
+    <h2>No result</h2>
+    <p>No movie matches “{{ title() }}”. Try another title.</p>
+  </div>
+} @else {
+  <p class="summary">
+    {{ totalResults() }} result{{ totalResults() > 1 ? 's' : '' }} for “{{ title() }}”
+  </p>
+  <div class="movie-grid">
+    @for (movie of results(); track movie.id) {
+      <app-movie-card [movie]="movie" />
+    }
+  </div>
+}

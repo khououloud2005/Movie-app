@@ -1,0 +1,48 @@
+<div class="page">
+  <app-search-bar [initialValue]="movieService.searchTerm()" (titleChange)="onTitleChange($event)" />
+
+  @if (movieService.searchTerm()) {
+    <app-movie-search [title]="movieService.searchTerm()" />
+  } @else {
+    <div class="toolbar">
+      <h2>Now playing</h2>
+      <label>
+        Sort by
+        <select #sortSelect [value]="sortBy()" (change)="onSort(sortSelect.value)">
+          <option value="default">Default</option>
+          <option value="rating">Rating</option>
+          <option value="date">Release date</option>
+          <option value="title">Title (A–Z)</option>
+        </select>
+      </label>
+    </div>
+
+    @if (movieService.movieList().length > 0) {
+      <div class="movie-grid">
+        @for (movie of sortedMovies(); track movie.id) {
+          <app-movie-card [movie]="movie" />
+        }
+      </div>
+    } @else if (loading()) {
+      <div class="movie-grid" aria-busy="true">
+        @for (n of skeletons; track n) {
+          <div class="skeleton"></div>
+        }
+      </div>
+    }
+
+    @if (error()) {
+      <div class="state error" role="alert">
+        <h2>Could not load the movies</h2>
+        <p>Check your connection and your TMDB API key, then try again.</p>
+        <button type="button" class="btn" (click)="loadMore()">Retry</button>
+      </div>
+    } @else if (hasMore() && movieService.movieList().length > 0) {
+      <div class="load-more">
+        <button type="button" class="btn btn-outline" [disabled]="loading()" (click)="loadMore()">
+          {{ loading() ? 'Loading…' : 'Load more movies' }}
+        </button>
+      </div>
+    }
+  }
+</div>

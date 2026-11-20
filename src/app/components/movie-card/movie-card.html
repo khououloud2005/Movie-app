@@ -1,0 +1,35 @@
+<article class="card">
+  <a class="link" [routerLink]="['/movie', movie().id]">
+    <div class="poster">
+      @if (posterUrl(); as src) {
+        <img [src]="src" [alt]="movie().title" loading="lazy" />
+      } @else {
+        <div class="no-poster">
+          <fa-icon [icon]="faFilm" size="2x" />
+          <span>No poster</span>
+        </div>
+      }
+    </div>
+    <div class="caption">
+      <h2>{{ movie().title }}</h2>
+      @if (year()) {
+        <span class="year">{{ year() }}</span>
+      }
+    </div>
+  </a>
+
+  <button
+    type="button"
+    class="heart"
+    [class.active]="inWishlist()"
+    [attr.aria-pressed]="inWishlist()"
+    [attr.aria-label]="inWishlist() ? 'Remove from wish list' : 'Add to wish list'"
+    (click)="toggleWishlist()"
+  >
+    <fa-icon [icon]="faHeart" />
+  </button>
+
+  @if (movie().vote_average > 0) {
+    <span class="rating"><fa-icon [icon]="faStar" /> {{ movie().vote_average | number: '1.1-1' }}</span>
+  }
+</article>

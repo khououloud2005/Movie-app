@@ -1,0 +1,146 @@
+:host {
+  position: relative;
+  display: block;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  height: 420px;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.25;
+  mask-image: linear-gradient(#000, transparent);
+  pointer-events: none;
+}
+
+.page {
+  position: relative;
+}
+
+.back {
+  margin-bottom: 22px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.poster img,
+.no-poster {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius);
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.no-poster {
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.poster-skeleton {
+  aspect-ratio: 2 / 3;
+}
+
+.info-skeleton {
+  height: 380px;
+  aspect-ratio: auto;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+}
+
+h2 {
+  margin: 24px 0 6px;
+  font-family: var(--font-title);
+  font-size: 1rem;
+  color: var(--yellow);
+}
+
+.tagline {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.genres li {
+  padding: 3px 12px;
+  border: 1px solid var(--yellow);
+  border-radius: 999px;
+  color: var(--yellow);
+  font-size: 0.8rem;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.facts div {
+  padding: 10px 14px;
+  border-left: 3px solid var(--yellow);
+  background: var(--surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+dt {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--yellow);
+}
+
+dd {
+  margin: 2px 0 0;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+.star {
+  color: var(--yellow);
+}
+
+.overview {
+  margin: 0 0 26px;
+  max-width: 70ch;
+  line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .poster {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+}

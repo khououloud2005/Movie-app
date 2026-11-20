@@ -1,59 +1,32 @@
-# MovieApp
+# Movie List (movie-app)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
+Application Angular (TP-3, 3BI – IHEC) : liste de films TMDB, recherche, détail et wish list.
 
-## Development server
-
-To start a local development server, run:
+## Lancer le projet
 
 ```bash
-ng serve
+npm install
+npm start        # http://localhost:4200
+npm test         # tests unitaires (Vitest)
+npm run build    # build de production
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La clé TMDB se trouve dans `src/environments/environment.ts` et `environment.development.ts`.
+Ne publiez pas votre clé sur un dépôt public.
 
-## Code scaffolding
+## Fonctionnalités
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Liste « now playing » avec pagination (« Load more ») et tri (note, date, titre)
+- Recherche par titre avec debounce (RxJS `debounceTime` + `switchMap`), conservée au retour d'un détail
+- Page détail (`/movie/:id`) : slogan, genres, durée, notes, synopsis, image de fond
+- Wish list persistante (localStorage) avec compteur dans l'en-tête, cœur sur chaque carte, « Clear all »
+- États de chargement (skeletons), d'erreur (bouton Retry) et de liste vide
+- Design noir et jaune responsive, accessible (focus visible, aria-label, reduced motion)
 
-```bash
-ng generate component component-name
-```
+## Routes
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+| Chemin | Composant |
+| --- | --- |
+| `/` | MovieList (+ SearchBar, MovieSearch) |
+| `/movie/:id` | MovieDetail |
+| `/wishlist` | WishList |

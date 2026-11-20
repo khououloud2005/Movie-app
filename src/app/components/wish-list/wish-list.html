@@ -1,0 +1,25 @@
+<div class="page">
+  <div class="toolbar">
+    <h2>My wish list ({{ movieService.wishlistCount() }})</h2>
+    @if (movieService.wishlistCount() > 0) {
+      <button type="button" class="btn btn-outline btn-danger" (click)="clearAll()">
+        <fa-icon [icon]="faTrash" /> Clear all
+      </button>
+    }
+  </div>
+
+  @if (movieService.wishlist().length > 0) {
+    <div class="movie-grid">
+      @for (movie of movieService.wishlist(); track movie.id) {
+        <app-movie-card [movie]="movie" />
+      }
+    </div>
+  } @else {
+    <div class="state">
+      <fa-icon [icon]="faHeart" size="3x" />
+      <h2>Your wish list is empty</h2>
+      <p>Tap the heart on a movie to save it here. It stays on this device.</p>
+      <a routerLink="/" class="btn">Browse movies</a>
+    </div>
+  }
+</div>
